@@ -68,10 +68,8 @@ enum {
     _kCFRuntimeIDCFLocale = 55,
     _kCFRuntimeIDCFDateFormatter = 56,
     _kCFRuntimeIDCFNumberFormatter = 57,
-#if TARGET_OS_OSX || DEPLOYMENT_RUNTIME_SWIFT
     _kCFRuntimeIDCFXMLParser = 58,
     _kCFRuntimeIDCFXMLNode = 59,
-#endif
     _kCFRuntimeIDCFFileDescriptor = 60,
     _kCFRuntimeIDCFSocket = 61,
     _kCFRuntimeIDCFAttributedString = 62,

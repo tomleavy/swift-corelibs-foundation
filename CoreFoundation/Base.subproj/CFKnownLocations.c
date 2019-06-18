@@ -93,7 +93,7 @@ CFURLRef _Nullable _CFKnownLocationCreatePreferencesURLForUser(CFKnownLocationUs
 
 #else
     
-    #error For this platform, you need to define a preferences path for both 'any user' (i.e. installation-wide preferences) or the current user.
+    location = NULL;
     
 #endif
     

@@ -468,7 +468,7 @@ static inline int _direntNameLength(struct dirent *entry) {
 #elif DEPLOYMENT_TARGET_ANDROID
     return strlen(entry->d_name);
 #else
-    return entry->d_namlen;
+    return strlen(entry->d_name);
 #endif
 }
 

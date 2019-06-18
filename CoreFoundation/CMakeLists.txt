@@ -315,7 +315,9 @@ add_framework(CoreFoundation
                 URL.subproj/CFURLComponents.c
                 URL.subproj/CFURLComponents_URIParser.c
                 URL.subproj/CFURLSessionInterface.c)
-if(CMAKE_SYSTEM_NAME STREQUAL Linux OR CMAKE_SYSTEM_NAME STREQUAL Android)
+if (CMAKE_SYSTEM_NAME STREQUAL Android)
+  target_compile_definitions(CoreFoundation PRIVATE -DDEPLOYMENT_TARGET_LINUX -DDEPLOYMENT_TARGET_ANDROID -D_GNU_SOURCE)
+elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
   target_compile_definitions(CoreFoundation
                              PRIVATE
                                -DDEPLOYMENT_TARGET_LINUX

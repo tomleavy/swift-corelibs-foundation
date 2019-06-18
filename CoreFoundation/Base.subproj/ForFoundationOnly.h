@@ -42,6 +42,16 @@ CF_EXTERN_C_END \
 CF_ASSUME_NONNULL_END \
 CF_IMPLICIT_BRIDGING_DISABLED
 
+#if DEPLOYMENT_TARGET_WINDOWS
+typedef HANDLE _CFThreadRef;
+typedef DWORD _CFThreadAttributes;
+typedef DWORD _CFThreadSpecificKey;
+#elif _POSIX_THREADS
+typedef pthread_t _CFThreadRef;
+typedef pthread_attr_t _CFThreadAttributes;
+typedef pthread_key_t _CFThreadSpecificKey;
+#endif
+
 // NOTE: miscellaneous declarations are at the end
 
 // ---- CFRuntime material ----------------------------------------
@@ -688,7 +698,7 @@ CF_EXPORT void *_CFCreateArrayStorage(size_t numPointers, Boolean zeroed, size_t
 
 // We don't need static class refs if CF is used standalone, as there's no Swift or ObjC runtime to interoperate with.
 #define STATIC_CLASS_REF(...) NULL
-
+#define DECLARE_STATIC_CLASS_REF(CLASSNAME) 
 #endif
 
 
