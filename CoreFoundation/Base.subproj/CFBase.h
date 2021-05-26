@@ -13,7 +13,7 @@
 #if DEPLOYMENT_RUNTIME_SWIFT
 #include <CoreFoundation/TargetConditionals.h>
 #else
-#include <TargetConditionals.h>
+#include "TargetConditionals.h"
 #endif
 #include <CoreFoundation/CFAvailability.h>
 

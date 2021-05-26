@@ -27,7 +27,7 @@ typedef struct {
 
 CF_EXPORT CFNumberType _CFNumberGetType2(CFNumberRef number);
 
-#if TARGET_RT_64_BIT
+#if TARGET_RT_64_BIT && !TARGET_OS_WIN32
 
 #ifndef _INT128_T
 #define _INT128_T
@@ -117,7 +117,7 @@ void _CFBigNumInitWithInt64(_CFBigNum *r, int64_t inNum) {
     r->digits[2] = dig2;
 }
 
-#if TARGET_RT_64_BIT
+#if TARGET_RT_64_BIT && !TARGET_OS_WIN32
 void _CFBigNumInitWithInt128(_CFBigNum *r, __int128_t inNum) {
     memset(r, 0, sizeof(*r));
     __uint128_t unsignInNum = inNum;
@@ -171,6 +171,7 @@ void _CFBigNumInitWithUInt64(_CFBigNum *r, uint64_t inNum) {
     r->digits[2] = dig2;
 }
 
+#if !TARGET_OS_WIN32
 #if TARGET_RT_64_BIT
 void _CFBigNumInitWithUInt128(_CFBigNum *r, __uint128_t inNum) {
     memset(r, 0, sizeof(*r));
@@ -188,6 +189,7 @@ void _CFBigNumInitWithUInt128(_CFBigNum *r, __uint128_t inNum) {
     r->digits[3] = dig3;
     r->digits[4] = dig4;
 }
+#endif
 #endif
 
 
@@ -226,6 +228,7 @@ int64_t _CFBigNumGetInt64(const _CFBigNum *num) {
     return result;
 }
 
+#if !TARGET_OS_WIN32
 #if TARGET_RT_64_BIT
 __int128_t _CFBigNumGetInt128(const _CFBigNum *num) {
     __int128_t result = num->digits[0];
@@ -238,6 +241,7 @@ __int128_t _CFBigNumGetInt128(const _CFBigNum *num) {
     }
     return result;
 }
+#endif
 #endif
 
 uint8_t _CFBigNumGetUInt8(const _CFBigNum *num) {
@@ -263,6 +267,7 @@ uint64_t _CFBigNumGetUInt64(const _CFBigNum *num) {
     return result;
 }
 
+#if !TARGET_OS_WIN32
 #if TARGET_RT_64_BIT
 __uint128_t _CFBigNumGetUInt128(const _CFBigNum *num) {
     __uint128_t result = num->digits[0];
@@ -273,7 +278,7 @@ __uint128_t _CFBigNumGetUInt128(const _CFBigNum *num) {
     return result;
 }
 #endif
-
+#endif
 
 void _CFBigNumInitWithCFNumber(_CFBigNum *r, CFNumberRef inNum) {
     uint8_t bytes[128 + 16];
@@ -332,7 +337,7 @@ void _CFBigNumInitWithBytes(_CFBigNum *r, const void *bytes, CFNumberType type) 
             _CFBigNumInitWithInt32(r, *(int32_t *)bytes);
         }
         return;
-#if TARGET_RT_64_BIT
+#if TARGET_RT_64_BIT && !TARGET_OS_WIN32
     case kCFNumberSInt128Type: {
         CFSInt128Struct s;
         memmove(&s, bytes, sizeof(CFSInt128Struct)); // the hard way because bytes might not be aligned
@@ -382,7 +387,7 @@ CFNumberRef _CFNumberCreateWithBigNum(const _CFBigNum *input) {
             return result;
         }
     }
-#if TARGET_RT_64_BIT
+#if TARGET_RT_64_BIT && !TARGET_OS_WIN32
     _CFBigNumInitWithInt128(&maxlimit, INT128_MAX);
     _CFBigNumInitWithInt128(&minlimit, INT128_MIN);
     CFComparisonResult cr = _CFBigNumCompare(input, &maxlimit);
