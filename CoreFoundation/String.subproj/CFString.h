@@ -102,7 +102,12 @@ typedef UInt32 CFStringEncoding;
    Call CFStringGetSystemEncoding() to get the default system encoding.
 */
 #define kCFStringEncodingInvalidId (0xffffffffU)
+
+#if !__clang__
+enum CFStringBuiltInEncodings {
+#else
 typedef CF_ENUM(CFStringEncoding, CFStringBuiltInEncodings) {
+#endif
     kCFStringEncodingMacRoman = 0,
     kCFStringEncodingWindowsLatin1 = 0x0500, /* ANSI codepage 1252 */
     kCFStringEncodingISOLatin1 = 0x0201, /* ISO 8859-1 */
@@ -683,7 +688,11 @@ void CFStringCapitalize(CFMutableStringRef theString, CFLocaleRef locale);
 	Unicode Technical Report #15. To normalize for use with file
 	system calls, use CFStringGetFileSystemRepresentation().
 */
+#if !__clang__
+enum CFStringNormalizationForm {
+#else
 typedef CF_ENUM(CFIndex, CFStringNormalizationForm) {
+#endif
 	kCFStringNormalizationFormD = 0, // Canonical Decomposition
 	kCFStringNormalizationFormKD, // Compatibility Decomposition
 	kCFStringNormalizationFormC, // Canonical Decomposition followed by Canonical Composition

@@ -22,7 +22,11 @@ typedef struct CF_BRIDGED_MUTABLE_TYPE(id) __CFNotificationCenter * CFNotificati
 
 typedef void (*CFNotificationCallback)(CFNotificationCenterRef center, void *observer, CFNotificationName name, const void *object, CFDictionaryRef userInfo);
 
+#if !__clang__
+enum CFNotificationSuspensionBehavior {
+#else
 typedef CF_ENUM(CFIndex, CFNotificationSuspensionBehavior) {
+#endif
     CFNotificationSuspensionBehaviorDrop = 1,
         // The server will not queue any notifications with this name and object while the process/app is in the background.
     CFNotificationSuspensionBehaviorCoalesce = 2,
@@ -32,6 +36,7 @@ typedef CF_ENUM(CFIndex, CFNotificationSuspensionBehavior) {
     CFNotificationSuspensionBehaviorDeliverImmediately = 4
         // The server will deliver notifications matching this registration whether or not the process is in the background.  When a notification with this suspension behavior is matched, it has the effect of first flushing any queued notifications.
 };
+
 
 CF_EXPORT CFTypeID CFNotificationCenterGetTypeID(void);
 

@@ -28,7 +28,11 @@ CFTypeID CFBooleanGetTypeID(void);
 CF_EXPORT
 Boolean CFBooleanGetValue(CFBooleanRef boolean);
 
+#if !__clang__
+enum CFNumberType {
+#else
 typedef CF_ENUM(CFIndex, CFNumberType) {
+#endif
     /* Fixed-width types */
     kCFNumberSInt8Type = 1,
     kCFNumberSInt16Type = 2,

@@ -26,7 +26,11 @@ typedef struct CF_BRIDGED_MUTABLE_TYPE(id) __CFNumberFormatter *CFNumberFormatte
 CF_EXPORT
 CFTypeID CFNumberFormatterGetTypeID(void);
 
+#if !__clang__
+enum CFNumberFormatterStyle {
+#else
 typedef CF_ENUM(CFIndex, CFNumberFormatterStyle) {	// number format styles
+#endif
 	kCFNumberFormatterNoStyle = 0,
 	kCFNumberFormatterDecimalStyle = 1,
 	kCFNumberFormatterCurrencyStyle = 2,
@@ -141,7 +145,11 @@ CF_EXPORT const CFNumberFormatterKey kCFNumberFormatterUseSignificantDigits API_
 CF_EXPORT const CFNumberFormatterKey kCFNumberFormatterMinSignificantDigits API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));	// CFNumber
 CF_EXPORT const CFNumberFormatterKey kCFNumberFormatterMaxSignificantDigits API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));	// CFNumber
 
+#if !__clang__
+enum CFNumberFormatterRoundingMode {
+#else
 typedef CF_ENUM(CFIndex, CFNumberFormatterRoundingMode) {
+#endif
     kCFNumberFormatterRoundCeiling = 0,
     kCFNumberFormatterRoundFloor = 1,
     kCFNumberFormatterRoundDown = 2,
@@ -151,7 +159,11 @@ typedef CF_ENUM(CFIndex, CFNumberFormatterRoundingMode) {
     kCFNumberFormatterRoundHalfUp = 6
 };
 
+#if !__clang__
+enum CFNumberFormatterPadPosition {
+#else
 typedef CF_ENUM(CFIndex, CFNumberFormatterPadPosition) {
+#endif
     kCFNumberFormatterPadBeforePrefix = 0,
     kCFNumberFormatterPadAfterPrefix = 1,
     kCFNumberFormatterPadBeforeSuffix = 2,

@@ -3,6 +3,20 @@ cmake_minimum_required(VERSION 3.4.3)
 list(APPEND CMAKE_MODULE_PATH
      "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
+if (WIN32)
+    list(APPEND CMAKE_MODULE_PATH
+        "${CMAKE_CURRENT_SOURCE_DIR}/../windows_cf_build")
+    include(conanbuildinfo)
+    set(WIN_CF_BUILD_UTIL ${CMAKE_CURRENT_SOURCE_DIR}/../windows_cf_build)
+    set(LIBXML2_LIBRARY ${CONAN_LIB_DIRS_LIBXML2}/${CONAN_LIBS_LIBXML2})
+    set(LIBXML2_INCLUDE_DIR ${CONAN_INCLUDE_DIRS_LIBXML2})
+    set(CURL_LIBRARY ${CONAN_LIB_DIRS_LIBCURL}/${CONAN_LIBS_LIBCURL})
+    set(CURL_INCLUDE_DIR ${CONAN_INCLUDE_DIRS_LIBCURL})
+    set(ICU_INCLUDE_DIR ${CONAN_INCLUDE_DIRS_ICU})
+    #set(CMAKE_C_COMPILER "C:/Library/Developer/Toolchains/unknown-Asserts-development.xctoolchain/usr/bin/clang-cl.exe") # From Swift.org windows toolchain installer
+    set(CMAKE_C_FLAGS "-DTARGET_RT_64_BIT -I${CONAN_INCLUDE_DIRS_LIBICONV} -I${CMAKE_CURRENT_SOURCE_DIR}/Base.subproj/SwiftRuntime -I${WIN_CF_BUILD_UTIL}/dispatch/include/Block -I${WIN_CF_BUILD_UTIL}/dispatch/include")
+endif()
+
 project(CoreFoundation
         VERSION
           1338

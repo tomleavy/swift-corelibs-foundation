@@ -95,7 +95,11 @@ CF_EXPORT
 uint32_t CFLocaleGetWindowsLocaleCodeFromLocaleIdentifier(CFLocaleIdentifier localeIdentifier) API_AVAILABLE(macos(10.6), ios(4.0), watchos(2.0), tvos(9.0));
 	// Map a locale identifier to a Windows LCID.
 
+#if !__clang__
+enum CFLocaleLanguageDirection {
+#else
 typedef CF_ENUM(CFIndex, CFLocaleLanguageDirection) {
+#endif
     kCFLocaleLanguageDirectionUnknown = 0,
     kCFLocaleLanguageDirectionLeftToRight = 1,
     kCFLocaleLanguageDirectionRightToLeft = 2,
